@@ -1,36 +1,115 @@
 const loadCategories = async () => {
-   try {
+  try {
     const url = `https://openapi.programming-hero.com/api/news/categories`;
     const res = await fetch(url);
     const data = await res.json();
     displayCategories(data.data.news_category);
-   }
-   catch(err) {
-    console.log(err)
-   }
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const displayCategories = (categories) => {
-  console.log(categories);
-  const categoryId = document.getElementById("categoryId");
-  categoryId.textContent = "";
+  //   console.log(categories);
+  const categoriesContainer = document.getElementById("categoriesContainer");
+  categoriesContainer.textContent = "";
   //Categories is empty
   if (!categories?.length) {
     alert("No category found");
+    return;
   } else {
+    // display all categories
     categories.forEach((category) => {
       const createDiv = document.createElement("div");
+      createDiv.classList.add('my-3')
       createDiv.innerHTML = `
-            <span class="py-3 cursor-pointer">${category?.category_name}</span> &nbsp; &nbsp; &nbsp;
+            <span id="${category?.category_id}" onclick="loadCategoryNews('${category?.category_id}','${category?.category_name}',)" class="py-3 cursor-pointer">${category?.category_name}</span> &nbsp; &nbsp; &nbsp;
           `;
-      categoryId.appendChild(createDiv);
+      categoriesContainer.appendChild(createDiv);
     });
   }
 };
 
-const displayCategoryNews = () => {
-    
-}
+const loadCategoryNews = async (category_id, category_name, event) => {
+  try {
+    //Remove previous selected category
+    const allCategoriesSpanTag = document.querySelectorAll(
+      "#categoriesContainer span"
+    );
+    for (const spanTag of allCategoriesSpanTag) {
+      spanTag.classList.remove("selected-category");
+    }
+
+    //Add border for current selected category
+    const categoryId = document.getElementById(category_id);
+    categoryId.classList.add("selected-category");
+
+    const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data.data);
+    displayCategoryNews(data?.data, category_name);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const displayCategoryNews = (news, category_name) => {
+  const newsContainer = document.getElementById("news-container");
+  newsContainer.textContent = "";
+  const noNewsFound = document.getElementById("no-news-found");
+  const newsFound = document.getElementById("news-found");
+
+  if (!news?.length) {
+    noNewsFound.innerText = `No items found for category ${category_name}`;
+    return;
+  } else {
+    newsFound.innerText = `${news.length} items found for category ${category_name}`;
+  }
+
+  // News list sort by property total_view
+  news =   news.sort(({total_view:a}, {total_view:b}) => b-a);
+  
+  // display all news
+  news.forEach((item) => {
+
+    if(item.details.length > 200 ) {
+       item.details = item.details.slice(0,400) + '...'
+    }
+    const newsDiv = document.createElement("div");
+    newsDiv.classList.add("col");
+    newsDiv.innerHTML = `
+            <div class="card flex-sm-row">
+            <img class="img-fluid w-sm-100" src="${item?.thumbnail_url}" />
+            <div class="card-body">
+            <h5 class="card-title">${item?.title}</h5>
+            <p class="card-text">
+                ${item?.details}
+            </p>
+            <div class="row py-2">
+                <div class="col-6">
+                <div class="d-flex">
+                    <div><img class="author-profile" src="${item?.author?.img}" ></div>
+                    <div class="ms-3">
+                        <div class="fw-bold">${item?.author?.name}</div>
+                        <div>${item?.author?.published_date}</div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-3">
+                <i class="fa-regular fa-eye"></i> &nbsp; ${item?.total_view}
+                </div>
+                <div class=" col-3">
+                <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                
+            </div>
+            </div>
+        </div>
+            `;
+    newsContainer.appendChild(newsDiv);
+  });
+};
 
 loadCategories();
 

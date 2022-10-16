@@ -32,13 +32,13 @@
 
             <!-- Category section start here -->
             <section>
-              <div id="categoryId" class="d-flex flex-wrap">
+              <div id="categoriesContainer" class="d-flex flex-wrap">
 
               </div>
               <div class="my-4 py-4">
                 <div class="bg-light p-2">
-                  <p id="no-category-found" class="text-warning d-none">No category found!</p>
-                  <p id="category-found" class="text-dark">No Phone Found. Please try a new search</p>
+                  <p id="no-news-found" class="text-warning d-none">No news found for this category</p>
+                  <p id="news-found" class="text-dark"></p>
                </div>
               </div>
             </section>
@@ -46,64 +46,20 @@
 
            <!-- News section start here -->
               <section>
-                <div class="row mt-5 row-cols-1 row-cols-md-1 row-cols-lg-2 g-4">
-                  <div class="col">
-                    <div class="card flex-sm-row">
-                      <img src="./images/course/course-1.png" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">HTML Crash Course</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and make up
-                          the bulk of the card.
-                        </p>
-                        <strong class="text-info">Price: 20$</strong>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card flex-sm-row">
-                      <img src="./images/course/course-1.png" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Learn CSS</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and make up
-                          the bulk of the card.
-                        </p>
-                        <strong class="text-info">Price: 20$</strong>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card flex-sm-row">
-                      <img src="./images/course/course-1.png" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Javascript Course</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and make up
-                          the bulk of the card.
-                        </p>
-                        <strong class="text-info">Price: 20$</strong>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card flex-sm-row">
-                      <img src="./images/course/course-1.png" alt="..." />
-                      <div class="card-body">
-                        <h5 class="card-title">Node.js Beginner</h5>
-                        <p class="card-text">
-                          Some quick example text to build on the card title and make up
-                          the bulk of the card.
-                        </p>
-                        <strong class="text-info">Price: 20$</strong>
-                      </div>
-                    </div>
-                  </div>
+                <div id="news-container" class="row mt-5 row-cols-1 g-4">
+               
+                 
                 </div>
               </section>
             <!-- News section ended here -->
   
       </main>
+
+      <footer class="container py-3 my-3">
+        <div class="my-4 py-5 text-center">
+              <p>&copy; 2022 News Magnet All Rights Reserved</p>
+        </div>
+      </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/795949b49e.js" crossorigin="anonymous"></script>
