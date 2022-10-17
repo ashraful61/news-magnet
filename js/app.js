@@ -1,5 +1,3 @@
-
-
 //Loading spinner toggle
 const toggleSpinner = (isLoading) => {
   const loaderSection = document.getElementById("loader");
@@ -31,12 +29,12 @@ const displayCategories = (categories) => {
   categoriesContainer.textContent = "";
   //Categories is empty
   if (!categories?.length) {
-    toggleSpinner(false)
-        alert("No category found");
+    toggleSpinner(false);
+    alert("No category found");
     return;
   } else {
     //By default first index category showing
-  
+
     // display all categories
     categories.forEach((category) => {
       const createDiv = document.createElement("div");
@@ -46,7 +44,7 @@ const displayCategories = (categories) => {
           `;
       categoriesContainer.appendChild(createDiv);
     });
-    loadCategoryNews(categories[0]?.category_id, categories[0]?.category_name)
+    loadCategoryNews(categories[0]?.category_id, categories[0]?.category_name);
     toggleSpinner(false);
   }
 };
