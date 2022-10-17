@@ -102,8 +102,8 @@ const displayCategoryNews = (news, category_name) => {
 
   // display all news
   news.forEach((item) => {
-    if (item.details.length > 200) {
-      item.details = item.details.slice(0, 400) + "...";
+    if (item.details.length > 300) {
+      item.details = item.details.slice(0, 300) + "...";
     }
     const newsDiv = document.createElement("div");
     newsDiv.classList.add("col");
@@ -193,7 +193,8 @@ const displayNewsDetails = (newsDetails) => {
       newsDetails.others_info.is_todays_pick ? "Yes" : "No"
     } </p>
     
-
+    <h4 class="py-2">News description:</h4>
+    <p> ${newsDetails?.details ? newsDetails?.details : "No details found"} </p>
   `;
   toggleSpinner(false);
 };
