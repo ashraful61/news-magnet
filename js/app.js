@@ -31,7 +31,7 @@ const displayCategories = (categories) => {
   categoriesContainer.textContent = "";
   //Categories is empty
   if (!categories?.length) {
-    alert("No category found");
+        alert("No category found");
     return;
   } else {
     //By default first index category showing
