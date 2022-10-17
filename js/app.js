@@ -97,8 +97,9 @@ const displayCategoryNews = (news, category_name) => {
     newsFound.innerText = `${news.length} items found for category ${category_name}`;
   }
 
-  // News list sort by property total_view
-  news = news.sort(({ total_view: a }, { total_view: b }) => b - a);
+
+    // News list sort by property total_view
+    news = news.sort(({ total_view: a }, { total_view: b }) => b - a);
 
   // display all news
   news.forEach((item) => {
