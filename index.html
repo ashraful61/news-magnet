@@ -5,8 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>News Magnet</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -57,32 +61,40 @@
         <!-- News section start here -->
         <section>
           <div id="news-container" class="row mt-5 row-cols-1 g-4"></div>
-             
 
-
-             
-              <!-- News Details Modal -->
-              <div class="modal fade" id="newsDetailsModal" tabindex="-1" aria-labelledby="newsDetailsModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="newsDetailsModalLabel"></h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div id="news-details" class="modal-body">
-                      
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                    </div>
-                  </div>
+          <!-- News Details Modal -->
+          <div
+            class="modal fade"
+            id="newsDetailsModal"
+            tabindex="-1"
+            aria-labelledby="newsDetailsModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="newsDetailsModalLabel"></h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div id="news-details" class="modal-body"></div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                 </div>
               </div>
-
-
-
-
+            </div>
+          </div>
         </section>
         <!-- News section ended here -->
       </div>
@@ -139,11 +151,11 @@
         </section>
         <!-- arrow function vs normal function differences ended here -->
 
-
-      <!-- .forEach, .map, .filter, .find start -->
+        <!-- .forEach, .map, .filter, .find start -->
         <section>
           <h4>
-            What is the differences between .forEach(), .map(), .filter(), .find() ?
+            What is the differences between .forEach(), .map(), .filter(),
+            .find() ?
           </h4>
           <ul>
             <li>
@@ -152,32 +164,56 @@
               function is used for more complex arrays, for example, an array of
               objects with a lot of entries than just an array of integers
             </li>
-            <li>Function .map() is a manipulative function that can modify each element’s content in an array that it is called on. This function returns a new array with modified values, the array that it is called on will stay still. This function is useful for adding a little change to an already existing array, for example adding a property to an object or modifying it. Its construction and use are identical to the previous function .forEach() and both can be used interchangeably</li>
-           <li>Function .filter() is a search function that returns all the elements that fulfil the assigned condition. You can search by simple terms, for example, that element is equal to a certain integer, or by more advanced terms, for example, searching for an object with certain property that is equal to something. Both examples have a very frequent use as a developer.</li>
-           <li>Function .find() is also a search function like the previous but they differ in one small detail — this function returns only one match in an array. If in an array is more than one result, the function will return the first that has matched.</li>
+            <li>
+              Function .map() is a manipulative function that can modify each
+              element’s content in an array that it is called on. This function
+              returns a new array with modified values, the array that it is
+              called on will stay still. This function is useful for adding a
+              little change to an already existing array, for example adding a
+              property to an object or modifying it. Its construction and use
+              are identical to the previous function .forEach() and both can be
+              used interchangeably
+            </li>
+            <li>
+              Function .filter() is a search function that returns all the
+              elements that fulfil the assigned condition. You can search by
+              simple terms, for example, that element is equal to a certain
+              integer, or by more advanced terms, for example, searching for an
+              object with certain property that is equal to something. Both
+              examples have a very frequent use as a developer.
+            </li>
+            <li>
+              Function .find() is also a search function like the previous but
+              they differ in one small detail — this function returns only one
+              match in an array. If in an array is more than one result, the
+              function will return the first that has matched.
+            </li>
           </ul>
         </section>
-         <!-- .forEach, .map, .filter, .find end -->
+        <!-- .forEach, .map, .filter, .find end -->
 
-          <!-- template string start -->
+        <!-- template string start -->
         <section>
-          <h4>
-           Why template string is required ?
-          </h4>
+          <h4>Why template string is required ?</h4>
           <ul>
             <li>
-              Template literals are literals delimited with backtick (`) characters, allowing for multi-line strings, string interpolation with embedded expressions, and special constructs called tagged templates.
+              Template literals are literals delimited with backtick (`)
+              characters, allowing for multi-line strings, string interpolation
+              with embedded expressions, and special constructs called tagged
+              templates.
             </li>
-            <li>FTemplate literals are sometimes informally called template strings, because they are used most commonly for string interpolation (to create strings by doing substitution of placeholders). However, a tagged template literal may not result in a string; it can be used with a custom tag function to perform whatever operations you want on the different parts of the template literal</li>
-           
+            <li>
+              FTemplate literals are sometimes informally called template
+              strings, because they are used most commonly for string
+              interpolation (to create strings by doing substitution of
+              placeholders). However, a tagged template literal may not result
+              in a string; it can be used with a custom tag function to perform
+              whatever operations you want on the different parts of the
+              template literal
+            </li>
           </ul>
         </section>
-         <!-- template string end -->
-
-       
-
-
-
+        <!-- template string end -->
       </div>
       <!-- blog section ended here -->
     </main>
@@ -188,7 +224,11 @@
       </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
     <script
       src="https://kit.fontawesome.com/795949b49e.js"
       crossorigin="anonymous"
