@@ -1,11 +1,26 @@
+
+
+const toggleSpinner = isLoading => {
+  const loaderSection = document.getElementById('loader');
+  if(isLoading){
+      loaderSection.classList.remove('d-none')
+  }
+  else{
+      loaderSection.classList.add('d-none');
+  }
+}
+
 const loadCategories = async () => {
   try {
+    toggleSpinner(true)
     const url = `https://openapi.programming-hero.com/api/news/categories`;
     const res = await fetch(url);
     const data = await res.json();
     displayCategories(data.data.news_category);
   } catch (err) {
     console.log(err);
+    toggleSpinner(false)
+  
   }
 };
 
@@ -27,11 +42,16 @@ const displayCategories = (categories) => {
           `;
       categoriesContainer.appendChild(createDiv);
     });
+    toggleSpinner(false)
   }
 };
 
 const loadCategoryNews = async (category_id, category_name) => {
+  
   try {
+   // start loader
+   toggleSpinner(true)
+
     //Remove previous selected category
     const allCategoriesSpanTag = document.querySelectorAll(
       "#categoriesContainer span"
@@ -51,6 +71,7 @@ const loadCategoryNews = async (category_id, category_name) => {
     displayCategoryNews(data?.data, category_name);
   } catch (err) {
     console.log(err);
+    toggleSpinner(false)
   }
 };
 
@@ -61,6 +82,7 @@ const displayCategoryNews = (news, category_name) => {
   const newsFound = document.getElementById("news-found");
 
   if (!news?.length) {
+    toggleSpinner(false)
     noNewsFound.classList.remove('d-none')
     newsFound.classList.add('d-none')
     noNewsFound.innerText = `No items found for category ${category_name}`;
@@ -82,7 +104,7 @@ const displayCategoryNews = (news, category_name) => {
     const newsDiv = document.createElement("div");
     newsDiv.classList.add("col");
     newsDiv.innerHTML = `
-            <div onclick="loadNewsDetails('${item._id}')" class="card flex-sm-row">
+            <div onclick="loadNewsDetails('${item._id}')" class="card flex-sm-row shadow" data-bs-toggle="modal" data-bs-target="#newsDetailsModal">
             <img class="img-fluid w-sm-100" src="${item?.thumbnail_url}" />
             <div class="card-body">
             <h5 class="card-title">${item?.title}</h5>
@@ -94,13 +116,13 @@ const displayCategoryNews = (news, category_name) => {
                 <div class="d-flex">
                     <div><img class="author-profile" src="${item?.author?.img}" ></div>
                     <div class="ms-3">
-                        <div class="fw-bold">${item?.author?.name}</div>
-                        <div>${item?.author?.published_date}</div>
+                        <div class="fw-bold">${item?.author?.name ? item.author.name : 'No author found' }</div>
+                        <div>${item?.author?.published_date ? item?.author?.published_date : 'No date found' }</div>
                     </div>
                 </div>
                 </div>
                 <div class="col-3">
-                <i class="fa-regular fa-eye"></i> &nbsp; ${item?.total_view}
+                <i class="fa-regular fa-eye"></i> &nbsp; ${item?.total_view ? item?.total_view + 'M' : 'No view found'}
                 </div>
                 <div class=" col-3">
                 <i class="fa-solid fa-arrow-right"></i>
@@ -112,11 +134,14 @@ const displayCategoryNews = (news, category_name) => {
             `;
     newsContainer.appendChild(newsDiv);
   });
+  toggleSpinner(false)
+  
 };
 
 
 const loadNewsDetails = async (news_id) => {
   try {
+    toggleSpinner(true)
     const url = ` https://openapi.programming-hero.com/api/news/${news_id}`;
     const res = await fetch(url);
     const data = await res.json();
@@ -124,15 +149,28 @@ const loadNewsDetails = async (news_id) => {
     displayNewsDetails(data?.data[0]);
   } catch (err) {
     console.log(err);
+    toggleSpinner(false)
+  
   }
 }
 
 const displayNewsDetails = (newsDetails) => {
   console.log(newsDetails)
   // displayNewsDetails
+  const modalTitle = document.getElementById('newsDetailsModalLabel')
+  modalTitle.innerText  = newsDetails.title
+  const newsDetailsDiv = document.getElementById('news-details')
+  newsDetailsDiv.innerHTML = `
+    <p> <strong>Author Name:</strong> ${newsDetails.author.name ? newsDetails.author.name : 'No author name found'} </p>
+    <p> <strong>Publish Date:</strong> ${newsDetails.author.published_date ? newsDetails.author.published_date : 'No published date found'} </p>
+    <p> <strong>Total view:</strong> ${newsDetails.total_view ? newsDetails.total_view + 'M': 'No view found'} </p>
+    <p> <strong>Todays Pick:</strong> ${newsDetails.others_info.is_todays_pick ? 'Yes' : 'No'} </p>
+    
+
+  `
+  toggleSpinner(false)
+
 }
-
-
 
 
 //News button event handler
@@ -165,102 +203,3 @@ document.getElementById('blog-text').addEventListener('click', (e) => {
 
 loadCategories();
 
-// const displayPhones = (phones, dataLimit) =>{
-//     const phonesContainer = document.getElementById('phones-container');
-//     phonesContainer.textContent = '';
-//     // display 10 phones only
-//     const showAll = document.getElementById('show-all');
-//     if(dataLimit && phones.length > 10) {
-//         phones = phones.slice(0, 10);
-//         showAll.classList.remove('d-none');
-//     }
-//     else{
-//         showAll.classList.add('d-block');
-//     }
-
-//     // display no phones found
-//     const noPhone = document.getElementById('no-found-message');
-//     if(phones.length === 0){
-//         noPhone.classList.remove('d-none');
-//     }
-//     else{
-//         noPhone.classList.add('d-none');
-//     }
-//     // display all phones
-//     phones.forEach(phone =>{
-//         const phoneDiv  = document.createElement('div');
-//         phoneDiv.classList.add('col');
-//         phonesContainer.innerHTML = `
-//         <div class="card p-4">
-//             <img src="${phone.image}" class="card-img-top" alt="...">
-//             <div class="card-body">
-//                 <h5 class="card-title">${phone.phone_name}</h5>
-//                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-//                 <button onclick="loadPhoneDetails('${phone.slug}')" href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#phoneDetailModal">Show Details</button>
-
-//             </div>
-//         </div>
-//         `;
-//         phonesContainer.appendChild(phoneDiv);
-//     });
-//     // stop spinner or loader
-//     toggleSpinner(false);
-// }
-
-// const processSearch = (dataLimit) =>{
-//     toggleSpinner(true);
-//     const searchField = document.getElementById('search-field');
-//     const searchText = searchField.value;
-//     loadPhones(searchText, dataLimit);
-// }
-
-// // handle search button click
-// document.getElementById('btn-search').addEventListener('click', function(){
-//     // start loader
-//     processSearch(10);
-// })
-
-// // search input field enter key handler
-// document.getElementById('search-field').addEventListener('keypress', function (e) {
-//     if (e.key === 'enter') {
-//         processSearch(10);
-//     }
-// });
-
-// const toggleSpinner = isLoading => {
-//     const loaderSection = document.getElementById('loader');
-//     if(!isLoading){
-//         loaderSection.classList.remove('d-none')
-//     }
-//     else{
-//         loaderSection.classList.add('d-none');
-//     }
-// }
-
-// // not the best way to load show All
-// document.getElementById('btn-show-all').addEventListener('click', function(){
-//     processSearch();
-// })
-
-// const loadPhoneDetails = async id =>{
-//     const url =`www.openapi.programming-hero.com/api/phone/${id}`;
-//     const res = await fetch(url);
-//     const data = await res.json();
-//     displayPhoneDetails(data.data);
-// }
-
-// const displayPhoneDetails = phone =>{
-//     console.log(phone);
-//     const modalTitle = document.getElementById('phoneDetailModalLabel');
-//     modalTitle.innerText = phone.name;
-//     const phoneDetails = document.getElementById('phone-details');
-//     console.log(phone.mainFeatures.sensors[0]);
-//     phoneDetails.innerHTML = `
-//         <p>Release Date: ${phone.releaseDate}</p>
-//         <p>Storage: ${phone.mainFeatures}</p>
-//         <p>Others: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth Information'}</p>
-//         <p>Sensor: ${phone.mainFeatures.sensors ? phone.mainFeatures.sensors[0] : 'no sensor'}</p>
-//     `
-// }
-
-// loadPhones('a');
