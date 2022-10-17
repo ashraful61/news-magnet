@@ -31,6 +31,7 @@ const displayCategories = (categories) => {
   categoriesContainer.textContent = "";
   //Categories is empty
   if (!categories?.length) {
+    toggleSpinner(false)
         alert("No category found");
     return;
   } else {

@@ -1,33 +1,32 @@
-
 /* Utilies styles css */
 
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-
-.news-text-cls, .blog-text-cls {
-    text-decoration: underline;
-    color: #5D5FEF;
-}
-#news-text, #blog-text {
-    cursor: pointer;
+.news-text-cls,
+.blog-text-cls {
+  text-decoration: underline;
+  color: #5d5fef;
 }
 
-
+#news-text,
+#blog-text {
+  cursor: pointer;
+}
 
 .cursor-pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .author-profile {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
 }
 
 .selected-category {
-    font-weight: bold;
-    text-decoration: underline;
+  font-weight: bold;
+  text-decoration: underline;
 }
