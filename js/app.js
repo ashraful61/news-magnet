@@ -21,16 +21,16 @@ const displayCategories = (categories) => {
     // display all categories
     categories.forEach((category) => {
       const createDiv = document.createElement("div");
-      createDiv.classList.add('my-3')
+      createDiv.classList.add("my-3");
       createDiv.innerHTML = `
-            <span id="${category?.category_id}" onclick="loadCategoryNews('${category?.category_id}','${category?.category_name}',)" class="py-3 cursor-pointer">${category?.category_name}</span> &nbsp; &nbsp; &nbsp;
+            <span id="${category?.category_id}" onclick="loadCategoryNews('${category?.category_id}','${category?.category_name}')" class="py-3 cursor-pointer">${category?.category_name}</span> &nbsp; &nbsp; &nbsp;
           `;
       categoriesContainer.appendChild(createDiv);
     });
   }
 };
 
-const loadCategoryNews = async (category_id, category_name, event) => {
+const loadCategoryNews = async (category_id, category_name) => {
   try {
     //Remove previous selected category
     const allCategoriesSpanTag = document.querySelectorAll(
@@ -61,25 +61,28 @@ const displayCategoryNews = (news, category_name) => {
   const newsFound = document.getElementById("news-found");
 
   if (!news?.length) {
+    noNewsFound.classList.remove('d-none')
+    newsFound.classList.add('d-none')
     noNewsFound.innerText = `No items found for category ${category_name}`;
     return;
   } else {
+    noNewsFound.classList.add('d-none')
+    newsFound.classList.remove('d-none')
     newsFound.innerText = `${news.length} items found for category ${category_name}`;
   }
 
   // News list sort by property total_view
-  news =   news.sort(({total_view:a}, {total_view:b}) => b-a);
-  
+  news = news.sort(({ total_view: a }, { total_view: b }) => b - a);
+
   // display all news
   news.forEach((item) => {
-
-    if(item.details.length > 200 ) {
-       item.details = item.details.slice(0,400) + '...'
+    if (item.details.length > 200) {
+      item.details = item.details.slice(0, 400) + "...";
     }
     const newsDiv = document.createElement("div");
     newsDiv.classList.add("col");
     newsDiv.innerHTML = `
-            <div class="card flex-sm-row">
+            <div onclick="loadNewsDetails('${item._id}')" class="card flex-sm-row">
             <img class="img-fluid w-sm-100" src="${item?.thumbnail_url}" />
             <div class="card-body">
             <h5 class="card-title">${item?.title}</h5>
@@ -110,6 +113,55 @@ const displayCategoryNews = (news, category_name) => {
     newsContainer.appendChild(newsDiv);
   });
 };
+
+
+const loadNewsDetails = async (news_id) => {
+  try {
+    const url = ` https://openapi.programming-hero.com/api/news/${news_id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data)
+    displayNewsDetails(data?.data[0]);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const displayNewsDetails = (newsDetails) => {
+  console.log(newsDetails)
+  // displayNewsDetails
+}
+
+
+
+
+//News button event handler
+document.getElementById('news-text').addEventListener('click', (e) => {
+  const newsSection = document.getElementById('newsSection')
+  const blogSection = document.getElementById('blogSection')
+  e.target.classList.add('news-text-cls')
+
+  const blogText = document.getElementById('blog-text')
+  blogText.classList.remove('blog-text-cls')
+  blogSection.classList.add('d-none')
+  newsSection.classList.remove('d-none')
+  blogSection.classList.remove('d-block')
+})
+
+//Blog button event handler
+document.getElementById('blog-text').addEventListener('click', (e) => {
+  const newsSection = document.getElementById('newsSection')
+  const blogSection = document.getElementById('blogSection')
+  e.target.classList.add('blog-text-cls')
+
+  const newsText = document.getElementById('news-text')
+  
+  newsText.classList.remove('news-text-cls')
+  newsSection.classList.add('d-none')
+  blogSection.classList.remove('d-none') 
+  blogSection.classList.add('d-block')
+  
+})
 
 loadCategories();
 

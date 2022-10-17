@@ -7,10 +7,15 @@ body {
 }
 
 
-.news-text {
+.news-text-cls, .blog-text-cls {
     text-decoration: underline;
     color: #5D5FEF;
 }
+#news-text, #blog-text {
+    cursor: pointer;
+}
+
+
 
 .cursor-pointer {
     cursor: pointer;
